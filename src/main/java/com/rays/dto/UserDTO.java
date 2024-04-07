@@ -1,19 +1,38 @@
-package com.rays.common;
+package com.rays.dto;
 
-public class UserDTO {
+import com.rays.common.BaseDTO;
 
-    private int id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Date;
+
+@Entity
+@Table(name = "ST_USER")
+public class UserDTO extends BaseDTO {
+
+    @Column(name = "FIRST_NAME", length = 50)
     private String firstName;
+
+    @Column(name = "LAST_NAME", length = 50)
     private String lastName;
+
+    @Column(name = "LOGIN_ID", length = 50)
     private String loginId;
+
+    @Column(name = "PASSWORD", length = 50)
     private String password;
 
-    public int getId() {
-        return id;
+    @Column(name = "DOB")
+    private Date dob;
+
+
+    public Date getDob() {
+        return dob;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public String getFirstName() {
