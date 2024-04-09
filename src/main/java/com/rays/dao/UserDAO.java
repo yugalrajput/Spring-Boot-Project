@@ -1,6 +1,8 @@
 package com.rays.dao;
 
+import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,7 +21,16 @@ public class UserDAO {
     @PersistenceContext
     public EntityManager entityManager;
 
+    @Autowired
+    public RoleDAO roleDao;
+
+    public void populate(UserDTO dto) {
+        RoleDTO roleDTO = roleDao.findByPk(dto.getRoleId());
+        dto.setRoleName(roleDTO.getName());
+    }
+
     public long add(UserDTO dto) {
+        populate(dto);
         entityManager.persist(dto);
 
         return dto.getId();

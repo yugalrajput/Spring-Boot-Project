@@ -7,8 +7,28 @@ public class ORSResponse {
     public static final String INPUT_ERROR = "inputerror";
     public static final String MESSAGE = "message";
     public static final String DATA = "data";
+    public boolean success = false;
 
     private Map<String, Object> result = new HashMap<String, Object>();
+
+    public ORSResponse() {
+
+    }
+
+    public ORSResponse(boolean success) {
+        this.success = success;
+
+    }
+
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
 
     public Map<String, Object> getResult() {
         return result;
