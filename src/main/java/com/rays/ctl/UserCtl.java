@@ -4,14 +4,20 @@ import com.rays.common.BaseCtl;
 import com.rays.common.BaseDTO;
 import com.rays.common.ORSResponse;
 import com.rays.common.SpringResponse;
+import com.rays.dto.AttachmentDTO;
 import com.rays.dto.UserDTO;
 import com.rays.form.UserForm;
+import com.rays.service.AttachmentService;
 import com.rays.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +27,11 @@ import java.util.Map;
 public class UserCtl extends BaseCtl {
 
     @Autowired
-    public UserService service;
+    public UserService userService;
+
+
+    @Autowired
+    public AttachmentService attachmentService;
 
     @PostMapping("save")
     public ORSResponse save(@RequestBody @Valid UserForm form, BindingResult bindingResult) {
@@ -34,11 +44,11 @@ public class UserCtl extends BaseCtl {
 
         UserDTO dto = (UserDTO) form.getDto();
         if (dto.getId() != null && dto.getId() > 0) {
-            service.update(dto);
+            userService.update(dto);
             res.addData(dto.getId());
             res.addMessage("Data Updated Successfully..!!");
         } else {
-            long pk = service.add(dto);
+            long pk = userService.add(dto);
             res.addData(pk);
             res.addMessage("Data added Successfully..!!");
         }
@@ -48,7 +58,7 @@ public class UserCtl extends BaseCtl {
     @GetMapping("get/{id}")
     public ORSResponse get(@PathVariable long id) {
         ORSResponse res = new ORSResponse();
-        UserDTO dto = service.findById(id);
+        UserDTO dto = userService.findById(id);
         res.addData(dto);
         return res;
     }
@@ -57,7 +67,7 @@ public class UserCtl extends BaseCtl {
     public ORSResponse delete(@PathVariable long[] ids) {
         ORSResponse res = new ORSResponse();
         for (long id : ids) {
-            service.delete(id);
+            userService.delete(id);
         }
         res.addMessage("data deleted successfully");
         return res;
@@ -71,7 +81,7 @@ public class UserCtl extends BaseCtl {
         UserDTO dto = new UserDTO();
         dto.setFirstName(form.getFirstName());
 
-        List list = service.search(dto, pageNo, 5);
+        List list = userService.search(dto, pageNo, 5);
 
         if (list.size() == 0) {
             res.addMessage("Result not found...!!!");
@@ -79,6 +89,68 @@ public class UserCtl extends BaseCtl {
             res.addData(list);
         }
         return res;
+    }
+
+
+    @PostMapping("/profilePic/{userId}")
+    public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file,
+                                 HttpServletRequest req) {
+
+        AttachmentDTO attachmentDto = new AttachmentDTO(file);
+
+        attachmentDto.setDescription("profile pic");
+
+        attachmentDto.setUserId(userId);
+
+        UserDTO userDto = userService.findById(userId);
+
+        if (userDto.getImageId() != null && userDto.getImageId() > 0) {
+
+            attachmentDto.setId(userDto.getImageId());
+
+        }
+
+        Long imageId = attachmentService.save(attachmentDto);
+
+        if (userDto.getImageId() == null) {
+
+            userDto.setImageId(imageId);
+
+            userService.update(userDto);
+        }
+
+        ORSResponse res = new ORSResponse();
+
+        res.addResult("imageId", imageId);
+
+        return res;
+    }
+
+    @GetMapping("/profilePic/{userId}")
+    public @ResponseBody void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
+
+        try {
+
+            UserDTO userDto = userService.findById(userId);
+
+            AttachmentDTO attachmentDTO = null;
+
+            if (userDto != null) {
+                attachmentDTO = attachmentService.findById(userDto.getImageId());
+            }
+
+            if (attachmentDTO != null) {
+                response.setContentType(attachmentDTO.getType());
+                OutputStream out = response.getOutputStream();
+                out.write(attachmentDTO.getDoc());
+                out.close();
+            } else {
+                response.getWriter().write("ERROR: File not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 

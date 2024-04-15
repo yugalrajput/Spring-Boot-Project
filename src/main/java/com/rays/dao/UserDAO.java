@@ -27,6 +27,11 @@ public class UserDAO {
     public void populate(UserDTO dto) {
         RoleDTO roleDTO = roleDao.findByPk(dto.getRoleId());
         dto.setRoleName(roleDTO.getName());
+
+        if (dto.getId() != null && dto.getId() > 0) {
+            UserDTO userData = findByPk(dto.getId());
+            dto.setImageId(userData.getImageId());
+        }
     }
 
     public long add(UserDTO dto) {
@@ -37,6 +42,7 @@ public class UserDAO {
     }
 
     public void update(UserDTO dto) {
+        populate(dto);
         entityManager.merge(dto);
     }
 
