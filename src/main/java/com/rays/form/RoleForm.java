@@ -1,19 +1,11 @@
-package com.rays.dto;
+package com.rays.form;
 
 import com.rays.common.BaseDTO;
+import com.rays.common.BaseForm;
+import com.rays.dto.RoleDTO;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "ST_ROLE")
-public class RoleDTO extends BaseDTO {
-
-    @Column(name = "NAME", length = 50)
+public class RoleForm extends BaseForm {
     private String name;
-
-    @Column(name = "DESCRIPTION", length = 50)
     private String description;
 
     public String getName() {
@@ -32,9 +24,10 @@ public class RoleDTO extends BaseDTO {
         this.description = description;
     }
 
-    public String getValue() {
-        return name;
+    public BaseDTO getDTO() {
+        RoleDTO dto = initDTO(new RoleDTO());
+        dto.setName(name);
+        dto.setDescription(description);
+        return dto;
     }
-
-
 }

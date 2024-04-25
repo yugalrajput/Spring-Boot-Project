@@ -6,13 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="7f6108e0-401d-4093-bdb8-4097fa3b39e7" name="Changes" comment="ok">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/SpringBootProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/SpringBootProjectApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/common/BaseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/common/BaseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/ctl/LoginCtl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/ctl/LoginCtl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/ctl/UserCtl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/ctl/UserCtl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/dao/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/dao/RoleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/dao/RoleDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/dto/RoleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/dto/RoleDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/rays/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rays/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rays/SpringBootProjectApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/rays/SpringBootProjectApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/rays/ctl/UserCtl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/rays/ctl/UserCtl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/rays/dao/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/rays/dao/UserDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/rays/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/rays/dto/UserDTO.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712683965661</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ok">
+      <option name="closed" value="true" />
+      <created>1713197361149</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713197361150</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

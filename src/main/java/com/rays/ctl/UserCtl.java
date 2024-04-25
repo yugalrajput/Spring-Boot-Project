@@ -1,13 +1,12 @@
 package com.rays.ctl;
 
-import com.rays.common.BaseCtl;
-import com.rays.common.BaseDTO;
-import com.rays.common.ORSResponse;
-import com.rays.common.SpringResponse;
+import com.rays.common.*;
 import com.rays.dto.AttachmentDTO;
+import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
 import com.rays.form.UserForm;
 import com.rays.service.AttachmentService;
+import com.rays.service.RoleService;
 import com.rays.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -29,9 +28,23 @@ public class UserCtl extends BaseCtl {
     @Autowired
     public UserService userService;
 
+    @Autowired
+    public RoleService roleService;
+
 
     @Autowired
     public AttachmentService attachmentService;
+
+    @GetMapping("preload")
+    public ORSResponse preload() {
+        ORSResponse res = new ORSResponse();
+
+        RoleDTO dto = new RoleDTO();
+        List<DropDownList> roleList = roleService.search(dto, 0, 0);
+
+        res.addResult("roleList", roleList);
+        return res;
+    }
 
     @PostMapping("save")
     public ORSResponse save(@RequestBody @Valid UserForm form, BindingResult bindingResult) {

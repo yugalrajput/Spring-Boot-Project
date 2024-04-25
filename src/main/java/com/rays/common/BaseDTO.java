@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class BaseDTO {
+public abstract class BaseDTO implements DropDownList {
 
 
     @Id
@@ -23,6 +23,10 @@ public abstract class BaseDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getKey() {
+        return id + "";
     }
 
 
