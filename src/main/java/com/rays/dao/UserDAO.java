@@ -37,7 +37,6 @@ public class UserDAO {
     public long add(UserDTO dto) {
         populate(dto);
         entityManager.persist(dto);
-
         return dto.getId();
     }
 

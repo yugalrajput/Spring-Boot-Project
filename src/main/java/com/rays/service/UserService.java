@@ -36,6 +36,7 @@ public class UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void update(UserDTO dto) {
+        UserDTO existDto = findById(dto.getId());
         dao.update(dto);
     }
 
