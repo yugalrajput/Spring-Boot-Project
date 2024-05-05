@@ -9,11 +9,9 @@ import com.rays.form.UserRegistrationForm;
 import com.rays.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
@@ -22,6 +20,15 @@ public class LoginCtl extends BaseCtl {
 
     @Autowired
     public UserService service;
+
+    @GetMapping("logout")
+    public ORSResponse logout(HttpSession session) {
+        ORSResponse res = new ORSResponse();
+        session.invalidate();
+        res.addMessage("Logout Successfully");
+        return res;
+    }
+
 
     @PostMapping("signUp")
     public ORSResponse signUp(@RequestBody @Valid UserRegistrationForm form, BindingResult bindingResult) {
@@ -47,7 +54,7 @@ public class LoginCtl extends BaseCtl {
     }
 
     @PostMapping("login")
-    public ORSResponse login(@RequestBody @Valid LoginForm form, BindingResult bindingResult) {
+    public ORSResponse login(@RequestBody @Valid LoginForm form, BindingResult bindingResult, HttpSession session) {
 
         ORSResponse res = validate(bindingResult);
 
@@ -58,9 +65,11 @@ public class LoginCtl extends BaseCtl {
         UserDTO dto = service.authenticate(form.getLoginId(), form.getPassword());
 
         if (dto != null) {
+            session.setAttribute("user", dto);
             res.addData(dto);
             res.addMessage("Login Successfully");
         } else {
+            res.setSuccess(false);
             res.addMessage("Login ID & Password is invalid..!!");
         }
         return res;
